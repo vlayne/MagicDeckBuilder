@@ -1,0 +1,43 @@
+.titleHeader{
+    margin-top: 5px;
+    text-align: center;
+}
+.form-inline{
+    text-align: right;
+    margin-top: 0px;
+    float:right;
+    width: 700px;
+}
+.titleHeader{
+    margin-top: 15px;
+}
+a, h1{
+    color:white;
+}
+.navbar-brand{
+    line-height: 30px;
+    margin-top:10px;
+}
+.imageTop{
+    filter: drop-shadow(0 0 1.25rem rgb(255, 255, 255));
+}
+
+.titleHeader{
+    font-family: 'HobbitonBrushHand'; 
+    font-size: 50px;
+    letter-spacing: -5px;
+}
+
+// SEARCH BAR 
+.input-group{
+    float:right;
+    display:flex;
+    margin-top:20px;
+}
+.form-control{
+    flex:3;
+}
+.input-group-append{
+    flex:1;
+}
+// END SEARCH BAR
