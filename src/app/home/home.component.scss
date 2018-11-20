@@ -1,15 +1,39 @@
 .card {
-    width: 20rem !important;
-    height: 20rem !important;
+    width: 22rem !important;
+    height: 22rem !important;
     color:white;
     text-align: center;
     background-color: rgb(124, 0, 0);
+    margin-right: 20px;
 }
 .container{
     margin-top: 50px;
+    width: 1300px;
+    text-align: center;    
+    padding-left: 60px;
 }
 .imgCards{
-    width: 100px;
+    width: auto;
     height:100px;
     text-align: center;
+}
+
+.waterTypeWidget{
+    margin-top:100px;
+    background-color:blue !important;
+}
+.fireTypeWidget{
+    margin-top:200px;
+    background-color: red !important;
+}
+.woodTypeWidget{
+    margin-top:200px;
+    background-color:green !important;
+}
+.lightTypeWidget{
+    background-color:rgb(206, 206, 45) !important;
+}
+.darkTypeWidget{
+    margin-top:100px;
+    background-color:black !important;
 }

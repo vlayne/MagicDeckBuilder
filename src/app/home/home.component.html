@@ -1,9 +1,12 @@
-<div class="container"> 
-  <div class="card col-md-4">
-    <div class="card-body">
-      <h5 class="card-title">Fire Element</h5>
-      <img class="imgCards" src='..\assets\imgs\flame.png' >
-      <p class="card-text">Smell the scent of ashes.</p>
+<div *ngIf="!fromHomeWidgetsToCards" class="container"> 
+  <div  *ngFor="let type of types">
+    <div class="card col-md-4" (click)="getCardsFromType(type)" [ngClass]= type.class >
+      <div class="card-body">
+        <h5 class="card-title">{{ type.type }} Element</h5>
+        <img class="imgCards" [src]= type.imageUrl >
+        <p class="card-text">{{ type.description }}</p>
+      </div>
     </div>
   </div>
 </div>
+<app-cards-list *ngIf="fromHomeWidgetsToCards" #cardsByType [listCards]="cardsByColor" ></app-cards-list>

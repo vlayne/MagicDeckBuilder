@@ -10,6 +10,9 @@ import { UserDecksComponent } from './user-decks/user-decks.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CardsService } from './services/cards-service.component';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { TypesService } from './services/types-service.component';
+// import { SassHelperComponent } from './services/sass-helper/sass-helper.component';
+import { CardsListComponent } from './cards-list/cards-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -22,7 +25,9 @@ export const routes: Routes = [
     HomeComponent,
     HeaderComponent,
     FooterComponent,
-    UserDecksComponent
+    UserDecksComponent,
+    // SassHelperComponent,
+    CardsListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,7 @@ export const routes: Routes = [
   ],
   providers: [
     CardsService,
+    TypesService
   ],
   bootstrap: [AppComponent]
 })
