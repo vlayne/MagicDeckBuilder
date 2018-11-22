@@ -1,4 +1,4 @@
-<div *ngIf="!fromHomeWidgetsToCards" class="container"> 
+<div *ngIf="!fromHomeWidgetsToCards; else getCardsByElement" class="container"> 
   <div  *ngFor="let type of types">
     <div class="card col-md-4" (click)="getCardsFromType(type)" [ngClass]= type.class >
       <div class="card-body">
@@ -9,4 +9,7 @@
     </div>
   </div>
 </div>
-<app-cards-list *ngIf="fromHomeWidgetsToCards" #cardsByType [listCards]="cardsByColor" ></app-cards-list>
+<ng-template #getCardsByElement>
+<button (click)="activateHomeLayout()">Back to Home</button>
+<app-pager #cardsByType [listCards]="cardsByColor" [elementCardText]="elementCardText" ></app-pager>
+</ng-template>

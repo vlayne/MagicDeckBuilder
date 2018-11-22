@@ -8,11 +8,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserDecksComponent } from './user-decks/user-decks.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { CardsService } from './services/cards-service.component';
+import { CardsService,TypesService, PagerService } from './services/index';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
-import { TypesService } from './services/types-service.component';
 // import { SassHelperComponent } from './services/sass-helper/sass-helper.component';
-import { CardsListComponent } from './cards-list/cards-list.component';
+import { PagerComponent } from './pager/pager.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -27,7 +26,7 @@ export const routes: Routes = [
     FooterComponent,
     UserDecksComponent,
     // SassHelperComponent,
-    CardsListComponent
+    PagerComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +37,8 @@ export const routes: Routes = [
   ],
   providers: [
     CardsService,
-    TypesService
+    TypesService,
+    PagerService
   ],
   bootstrap: [AppComponent]
 })
