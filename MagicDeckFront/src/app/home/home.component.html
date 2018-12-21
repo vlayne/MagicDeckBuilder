@@ -1,6 +1,6 @@
 <div *ngIf="!fromHomeWidgetsToCards; else getCardsByElement" class="container"> 
   <div  *ngFor="let type of types">
-    <div class="card col-md-4" (click)="getCardsFromType(type)" [ngClass]= type.class >
+    <div class="card col-md-4" (click)="getCardsFromType(type)" [ngStyle]="{'background-image': url(type.imageUrl)}">
       <div class="card-body">
         <h5 class="card-title">{{ type.type }} Element</h5>
         <img class="imgCards" [src]= type.imageUrl >

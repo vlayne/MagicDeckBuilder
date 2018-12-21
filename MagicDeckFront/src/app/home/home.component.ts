@@ -15,8 +15,9 @@ export class HomeComponent implements OnInit {
   constructor(private svcMagic: CardsService, private typeSvc: TypesService) { }
 
   ngOnInit() {
-    this.types =  this.typeSvc.getHomeTypes();
+    this.types =  this.typeSvc.getElementsType();
     this.svcMagic.getCardsTypes().subscribe(type => {
+    console.log('types', this.types);
     });
   }
   activateHomeLayout() {
