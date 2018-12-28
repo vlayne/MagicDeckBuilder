@@ -16,12 +16,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.types =  this.typeSvc.getElementsType();
+    console.log('elemTypes', this.types);
+
     this.svcMagic.getCardsTypes().subscribe(type => {
-    console.log('types', this.types);
+    console.log('types', type);
     });
   }
   activateHomeLayout() {
-    this.fromHomeWidgetsToCards = false;
+    if(this.fromHomeWidgetsToCards){
+      this.elementCardText = null;
+    }
+    this.fromHomeWidgetsToCards = !this.fromHomeWidgetsToCards;
   }
   getCardsFromType(type) {
     this.svcMagic.getAllCards().subscribe(card => {

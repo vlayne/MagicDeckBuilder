@@ -1,10 +1,18 @@
 .card {
-    width: 22rem !important;
-    height: 22rem !important;
-    color:white;
+    width: 14.4em !important;
+    height: 20em !important;
+    border: none;
+    border-radius: 1em;
+    color:black;
     text-align: center;
     margin-right: 20px;
     cursor: pointer;
+}
+.card-title{
+    padding-top: 0.4em;
+}
+.card-text {
+    padding-top: 1em;
 }
 .container{
     margin-top: 50px;

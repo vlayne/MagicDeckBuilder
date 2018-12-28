@@ -1,13 +1,10 @@
 .page-footer{
-    bottom: 0px;
+    bottom: 0;
     position: fixed;
-    left: 43%;
-    padding: 10px;
+    z-index: 99;
+    width: 100%;
     background-color: rgb(0, 0, 0);
     color: white;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    width: auto;
 }
 .a {
     text-decoration: goldenrod;

@@ -1,0 +1,8 @@
+{
+    "name": "magic-deck",
+    "version": "0.1.0",
+    "dependencies": {
+        "express": "^4.16.4",
+        "mysql": "^2.16.0"
+    }
+}
