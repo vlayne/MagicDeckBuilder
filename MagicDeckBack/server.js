@@ -1,8 +1,8 @@
-var express = require('express');
-var database = require('./database');
-var app = express();
-// var connection = dbconnect.connection;
-var connexion = database.connect();
+const express = require('express');
+const database = require('./database');
+const bcrypt = require('bcrypt-nodejs')
+const app = express();
+const connexion = database.connect();
 
 connexion.query('SELECT pseudonyme from travel_with_symbiosis.utilisateur', function(err,rows,fields){
     if(err) throw err;
@@ -14,7 +14,4 @@ app.get('/', function(req, res) {
     res.send('Vous êtes à l\'accueil');
 });
 
-app.get('/connection', function(req,res){
-    req.body()
-});
 app.listen(80);

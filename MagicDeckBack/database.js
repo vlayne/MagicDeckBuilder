@@ -7,7 +7,8 @@ exports.connect = function () {
     connexion = mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
-        password : '27-rebirth-07'
+        password : '27rebirth07',
+        database: "magicdeckbuilder"
     });
  return connexion;
 }

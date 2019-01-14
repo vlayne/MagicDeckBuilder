@@ -2,7 +2,10 @@
     "name": "magic-deck",
     "version": "0.1.0",
     "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
         "express": "^4.16.4",
-        "mysql": "^2.16.0"
+        "mtgsdk": "^0.4.2",
+        "mysql": "^2.16.0",
+        "request": "^2.88.0"
     }
 }

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/home']">
+    <fa-icon [icon]="faHome" size="lg"></fa-icon>  
+  </a>
+  <a *ngIf="logedIn; else signUpOrIn" class="navbar-brand" [routerLink]="['/user-decks']">
+    <fa-icon [icon]="faCard" size="lg" rotate="270"></fa-icon>
+  </a>
+  <ng-template #signUpOrIn>
+  <a class="navbar-brand" [routerLink]="['/sign-up']" >
+    <fa-icon [icon]="faUserPlus" size="lg" ></fa-icon>
+  </a>
+  <a class="navbar-brand" [routerLink]="['/sign-in']">
+    <fa-icon [icon]="faSignIn" size="lg" ></fa-icon>
+  </a>
+  </ng-template>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Find a card..." aria-label="Find a card..." aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button">Go</button>
+    </div>
+  </div>
+  <h1 class="titleHeader font-italic">
+    {{ title }}
+  </h1>
+</nav>
+<div style="text-align:center;">
+  <img alt="Magic Logo" class="imageTop" width=400 src="..\assets\imgs\magicLogo.png"/>
+</div>
