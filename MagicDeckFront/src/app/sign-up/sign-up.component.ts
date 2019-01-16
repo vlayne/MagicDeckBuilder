@@ -26,11 +26,13 @@ export class SignUpComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            firstName: [''],
+            lastName: [''],
             username: ['', Validators.required],
+            email:['',[Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
+        console.log('registerForm', this.registerForm.controls);
     }
 
     // convenience getter for easy access to form fields
@@ -39,7 +41,6 @@ export class SignUpComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
@@ -49,8 +50,8 @@ export class SignUpComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                    this.alertService.success('Inscription réussie', true);
+                    this.router.navigate(['/sign-in']);
                 },
                 error => {
                     this.alertService.error(error);

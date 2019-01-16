@@ -1,17 +1,14 @@
+
+<!-- cards creator http://www.smfcorp.net/funcards/smffcmonline/index2.php -->
 <div *ngIf="!fromHomeWidgetsToCards; else getCardsByElement" class="container"> 
   <div  *ngFor="let type of types">
     <div class="card col-md-4" (click)="getCardsFromType(type)" [ngStyle]="{'background-image': 'url(' + type.bgUrl +')'}">
-      <div class="card-body">
-        <h5 class="card-title">{{ type.type }} Element</h5>
-        <img class="imgCards" [src]= type.imageUrl >
-        <p class="card-text">{{ type.description }}</p>
-      </div>
     </div>
   </div>
 </div>
 <ng-template #getCardsByElement>
   <div class="pager">
     <button (click)="activateHomeLayout()">Back to Home</button>
-    <app-pager #cardsByType [listCards]="cardsByColor" [(elementCardText)]="elementCardText" ></app-pager>
+    <app-pager #cardsByType [listCards]="cardsByColor" [(elementCardText)]="type.name" ></app-pager>
   </div>
 </ng-template>

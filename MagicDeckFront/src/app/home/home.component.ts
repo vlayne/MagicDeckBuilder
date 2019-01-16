@@ -32,10 +32,6 @@ export class HomeComponent implements OnInit {
     this.svcMagic.getAllCards().subscribe(card => {
       this.cardsByColor = card.cards.filter(x => x.colorIdentity[0] === type.color);
       this.fromHomeWidgetsToCards = true;
-      if(!this.elementCardText && card.cards ){
-        this.elementCardText = card.cards.find(x => x.colorIdentity[0] === type.color).colors[0];
-      }
-      console.log('home widgets', this.cardsByColor);
     });
   }
 }
