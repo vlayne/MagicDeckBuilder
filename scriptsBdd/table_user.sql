@@ -1,4 +1,4 @@
-create table utilisateur( 
+create table User( 
 	id int NOT NULL AUTO_INCREMENT,
     email varchar(255) NOT NULL,
     mot_de_passe varchar(255) NOT NULL,

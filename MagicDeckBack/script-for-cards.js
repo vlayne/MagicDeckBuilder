@@ -10,32 +10,34 @@ let cardsLeft = true;
 
 let pageNumber = 1; 
 let countCards = 0;
-// 
+
 while(cardsLeft) {
 
-//   if(cards !== []){
-//     letterCondition = cards.
-//   }
-  mtgSdk.card.where({ page: pageNumber}).then(apiCards => {
-    if(apiCards){
-    countCards+= apiCards.length;
-    cards.push(apiCards);
-    } else {
-        cardsLeft = false;
-    }
-    console.log('countCards', countCards);
+  request('https://api.magicthegathering.io/v1/cards?page='+ pageNumber,{ json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+      if(body){
+      countCards+= body.length;
+      cards.push(body);
+      } else {
+          cardsLeft = false;
+      }
   });
+  // mtgSdk.card.where({ page: pageNumber}).then(apiCards => {
+
+  //   console.log('countCards', countCards);
+  // });
   pageNumber++;
-  if(pageNumber>10){
-    cardsLeft = false;
-  }
-}
+  // if(pageNumber>1){
+  //   cardsLeft = false;
+  // }
+} 
 
 const express = require('express')
 const app = express()
 
 app.get('/', function (req, res) {
-})
+  res.send(countCards);
+});
 
 app.listen(3000, function () {
 })
