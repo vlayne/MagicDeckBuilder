@@ -6,6 +6,8 @@
         "express": "^4.16.4",
         "mtgsdk": "^0.4.2",
         "mysql": "^2.16.0",
-        "request": "^2.88.0"
+        "request": "^2.88.0",
+        "request-json": "^0.6.4",
+        "uuid": "^3.3.2"
     }
 }
