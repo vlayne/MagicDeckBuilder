@@ -33,5 +33,6 @@ export class HomeComponent implements OnInit {
       this.cardsByColor = card.cards.filter(x => x.colorIdentity[0] === type.color);
       this.fromHomeWidgetsToCards = true;
     });
+    this.elementCardText = type.name;
   }
 }

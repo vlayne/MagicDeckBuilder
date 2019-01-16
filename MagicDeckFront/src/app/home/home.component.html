@@ -9,6 +9,6 @@
 <ng-template #getCardsByElement>
   <div class="pager">
     <button (click)="activateHomeLayout()">Back to Home</button>
-    <app-pager #cardsByType [listCards]="cardsByColor" [(elementCardText)]="type.name" ></app-pager>
+    <app-pager #cardsByType [listCards]="cardsByColor" [(elementCardText)]="elementCardText" ></app-pager>
   </div>
 </ng-template>

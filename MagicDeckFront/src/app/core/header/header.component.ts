@@ -15,8 +15,14 @@ export class HeaderComponent implements OnInit {
   logedIn = false;
   constructor(private actvRoot: ActivatedRoute) { }
 
+  // TODO : Handle logedIn boolean with user (token)
   ngOnInit() {
 
   }
-
+  onSearchChange(event) {
+    console.log('event', event.target.value);
+    if(event.target.value){
+      // TODO : call api (database) to get card "where name LIKE '%event.target.value'"
+    }
+  }
 }

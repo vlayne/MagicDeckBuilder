@@ -11,6 +11,8 @@ let cardsLeft = true;
 let pageNumber = 1; 
 let countCards = 0;
 
+// TODO : Try with https://api.scryfall.com/cards/search?page= !!!!
+
 while(cardsLeft) {
 
   request('https://api.magicthegathering.io/v1/cards?page='+ pageNumber,{ json: true }, (err, res, body) => {

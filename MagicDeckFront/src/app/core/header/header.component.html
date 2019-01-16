@@ -5,6 +5,9 @@
   <a *ngIf="logedIn; else signUpOrIn" class="navbar-brand" [routerLink]="['/user-decks']">
     <fa-icon [icon]="faCard" size="lg" rotate="270"></fa-icon>
   </a>
+  <a *ngIf="logedIn" class="navbar-brand" [routerLink]="['/profil']">
+    <fa-icon [icon]="faCard" size="lg" rotate="270"></fa-icon>
+  </a>
   <ng-template #signUpOrIn>
   <a class="navbar-brand" [routerLink]="['/sign-up']" >
     <fa-icon [icon]="faUserPlus" size="lg" ></fa-icon>
@@ -14,7 +17,7 @@
   </a>
   </ng-template>
   <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Find a card..." aria-label="Find a card..." aria-describedby="basic-addon2">
+    <input type="text" class="form-control" (change)="onSearchChange($event)" placeholder="Find a card..." aria-label="Find a card..." aria-describedby="basic-addon2">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" type="button">Go</button>
     </div>
