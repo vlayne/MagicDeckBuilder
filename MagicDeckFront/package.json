@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.0.0",
+    "@angular/cdk": "^7.2.1",
     "@angular/common": "~7.0.0",
     "@angular/compiler": "~7.0.0",
     "@angular/core": "~7.0.0",
@@ -29,6 +30,7 @@
     "devextreme-angular": "^18.2.3",
     "firebase": "^5.7.1",
     "lodash": "^4.17.11",
+    "ng-drag-drop": "^5.0.0",
     "node": "10.13.0",
     "node-sass": "4.9.0",
     "python": "0.0.4",

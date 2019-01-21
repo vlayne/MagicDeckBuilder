@@ -3,9 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '../services/index';
+import { AlertService, UserService } from '../services/index';
 
-@Component({templateUrl: 'sign-in.component.html'})
+@Component({selector: 'app-sign-in',
+templateUrl: './sign-in.component.html',
+styleUrls: ['./sign-in.component.scss']})
 export class SignInComponent implements OnInit {
     signInForm: FormGroup;
     loading = false;
@@ -16,11 +18,11 @@ export class SignInComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService,
+        private userService: UserService,
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.userService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -28,7 +30,7 @@ export class SignInComponent implements OnInit {
     ngOnInit() {
         this.signInForm = this.formBuilder.group({
             username: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['', [Validators.required, Validators.minLength(6)]]
         });
 
         // get return url from route parameters or default to '/'
@@ -47,11 +49,15 @@ export class SignInComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
+        this.userService.login(this.f.username.value, this.f.password.value)
             .subscribe(
                 data => {
+                    console.log('testData', data);
+                    if (data) {
                     this.router.navigate([this.returnUrl]);
+                    } else {
+                        this.alertService.error('error');
+                    }
                 },
                 error => {
                     this.alertService.error(error);

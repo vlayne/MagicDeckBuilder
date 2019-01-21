@@ -30,7 +30,8 @@ export class HomeComponent implements OnInit {
   }
   getCardsFromType(type) {
     this.svcMagic.getAllCards().subscribe(card => {
-      this.cardsByColor = card.cards.filter(x => x.colorIdentity[0] === type.color);
+      console.log(card);
+      this.cardsByColor = card.data.filter(x => x.color_identity.find(y => y === type.color));
       this.fromHomeWidgetsToCards = true;
     });
     this.elementCardText = type.name;

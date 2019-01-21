@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { AlertService, UserService } from '../services/index';
 
-import { AlertService, UserService, AuthenticationService } from '../services/index';
-
-@Component({templateUrl: 'sign-up.component.html'})
+@Component({selector: 'app-sign-up',
+templateUrl: './sign-up.component.html',
+styleUrls: ['./sign-up.component.scss']})
 export class SignUpComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
@@ -14,30 +14,37 @@ export class SignUpComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService
-    ) { 
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.userService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: [''],
-            lastName: [''],
             username: ['', Validators.required],
-            email:['',[Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            email: ['', [Validators.required, Validators.email]],
+            passwords : this.formBuilder.group({
+                password: ['', [Validators.required, Validators.minLength(6)]],
+                confirmPassword: ['', Validators.required]
+            }, {validator: this.samePasswords('password', 'confirmPassword')})
         });
-        console.log('registerForm', this.registerForm.controls);
     }
-
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
+    samePasswords(password: string, confirmPassword: string) {
+        return (group: FormGroup) => {
+            const passwordValue = group.controls[password];
+            const confirmPasswordValue = group.controls[confirmPassword];
+            if (passwordValue.value !== confirmPasswordValue.value) {
+                return confirmPasswordValue.setErrors({notEquivalent: true});
+            }
+        };
+    }
     onSubmit() {
         this.submitted = true;
 
@@ -47,11 +54,13 @@ export class SignUpComponent implements OnInit {
 
         this.loading = true;
         this.userService.register(this.registerForm.value)
-            .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Inscription réussie', true);
-                    this.router.navigate(['/sign-in']);
+                    console.log('response', data);
+                    this.alertService.success('Inscription réussie vous allez être rediriger dans 5 secondes', true);
+                    setTimeout(() => {
+                        this.router.navigate(['/sign-in']);
+                    }, 5000);
                 },
                 error => {
                     this.alertService.error(error);

@@ -4,7 +4,7 @@
 
       <!-- items being paged -->
       <div *ngFor="let type of listCurrentCards">
-        <div  class="card col-md-4" [style.backgroundImage]="getImageSecured(type.imageUrl)" >
+        <div  class="card col-md-4" [style.backgroundImage]="getImageSecured(type.image_uris['normal'])" >
           <div class="card-body">
             <div class="bar-bottom-actions">
               <h5 class="card-title" style="color:white" > {{ type.name }} </h5>
@@ -22,7 +22,7 @@
           <li [ngClass]="{disabled:pager.currentPage === 1}">
               <a (click)="setPage(pager.currentPage - 1)">Previous</a>
           </li>
-          <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <li *ngFor="let page of pager.pages" class="current_page" [ngClass]="{active:pager.currentPage === page}">
               <a (click)="setPage(page)">{{page}}</a>
           </li>
           <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">

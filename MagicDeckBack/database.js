@@ -2,13 +2,20 @@
 
 var mysql  = require('mysql');
 
+const settingsDB = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    port: 3306,
+    database: "magicdeckbuilder"
+})
 
-exports.connect = function () { 
-    connexion = mysql.createConnection({
+exports.settings = function (){
+    return mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
-        password : '27rebirth07',
+        password : '',
+        port: 3306,
         database: "magicdeckbuilder"
-    });
- return connexion;
-}
+    })
+};

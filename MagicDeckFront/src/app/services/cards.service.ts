@@ -10,6 +10,6 @@ export class CardsService {
       return  this.authHttp.get('https://api.magicthegathering.io/v1/types');
     }
     getAllCards(): Observable<any> {
-      return this.authHttp.get<any>('https://api.magicthegathering.io/v1/cards?setName=ravnica');
+      return this.authHttp.get<any>('https://api.scryfall.com/cards?set=rna');
     }
 }

@@ -1,80 +1,52 @@
 
-/*
- l'api permet de récupérer seulement 100 cartes, le but de ce script est de remplir ma BDD de toutes les cartes de l'api
-*/
 var mysql = require('mysql');
 const request = require('request');
-const mtgSdk = require('mtgsdk');
-let cards = [];
-let cardsLeft = true;
-
-let pageNumber = 1; 
-let countCards = 0;
-
-// TODO : Try with https://api.scryfall.com/cards/search?page= !!!!
-
-while(cardsLeft) {
-
-  request('https://api.magicthegathering.io/v1/cards?page='+ pageNumber,{ json: true }, (err, res, body) => {
-    if (err) { return console.log(err); }
-      if(body){
-      countCards+= body.length;
-      cards.push(body);
-      } else {
-          cardsLeft = false;
-      }
-  });
-  // mtgSdk.card.where({ page: pageNumber}).then(apiCards => {
-
-  //   console.log('countCards', countCards);
-  // });
-  pageNumber++;
-  // if(pageNumber>1){
-  //   cardsLeft = false;
-  // }
-} 
-
+let cardModel = require('./models/card.model');
 const express = require('express')
 const app = express()
 
+var cards = require('./cards-magic.json')
+
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "magicdeckbuilder"
+});
+
+let values = [];
+
+for (i=0; i<1000;i++){  
+    cards[i]['name'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    if(cards[i]['image_uris.normal']){
+    cards[i]['image_uris.normal'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    }
+    if(cards[i]['mana_cost']){
+    cards[i]['mana_cost'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    }
+    if(cards[i]['colors'] && cards[i]['colors'][0]){
+    cards[i]['colors'][0].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    }
+    cards[i]['type_line'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    cards[i]['rarity'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    cards[i]['set'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    
+    values.push([cards[i]['name'],cards[i]['image_uris.normal'],
+    cards[i]['mana_cost'],cards[i]['colors'] ? cards[i]['colors'][0] : null,cards[i]['type_line'],
+    cards[i]['rarity'],cards[i]['set']]);
+}
+
+con.query("INSERT INTO card (nom,imageUrl,manaCost,color,type,rareté,extension) VALUES ?",[values], function(err,result,fields) {
+  if(err) throw err;
+});
+
+
+
 app.get('/', function (req, res) {
-  res.send(countCards);
+  res.send(values);
 });
 
 app.listen(3000, function () {
 })
 // On ajout ensuite toutes les cartes récupérées à notre BDD
-
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "27rebirth07",
-//   database: "magicdeckbuilder"
-// });
-
-// con.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//     var sql = "INSERT INTO cards (name, address) VALUES ?";
-//     var values = [
-//         ['John', 'Highway 71'],
-//         ['Peter', 'Lowstreet 4'],
-//         ['Amy', 'Apple st 652'],
-//         ['Hannah', 'Mountain 21'],
-//         ['Michael', 'Valley 345'],
-//         ['Sandy', 'Ocean blvd 2'],
-//         ['Betty', 'Green Grass 1'],
-//         ['Richard', 'Sky st 331'],
-//         ['Susan', 'One way 98'],
-//         ['Vicky', 'Yellow Garden 2'],
-//         ['Ben', 'Park Lane 38'],
-//         ['William', 'Central st 954'],
-//         ['Chuck', 'Main Road 989'],
-//         ['Viola', 'Sideway 1633']
-//     ];
-//     con.query(sql, [values], function (err, result) {
-//         if (err) throw err;
-//         console.log("Number of records inserted: " + result.affectedRows);
-//     });
-// });
 
