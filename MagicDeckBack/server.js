@@ -1,14 +1,14 @@
 const express = require('express');
-const database = require('./database');
-const bcrypt = require('bcrypt-nodejs')
 const bodyParser = require ('body-parser');
 const app = express();
 const cors = require('cors');
-const users = require ('./routes/users');
+const indexRoute = require ('./routes/cards');
+const indexRoute2 = require ('./routes/users');
 
+
+// Config for request to api
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 app.all('*', function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");
@@ -17,8 +17,10 @@ app.all('*', function(req, res, next) {
     next();
  });
 
-app.use('/user', users);
-console.log('prod env', process.env);
+app.use('/user', indexRoute2);
+app.use('/cards', indexRoute);
+// console.log('prod env', process.env);
+
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.send('Vous êtes à l\'accueil');

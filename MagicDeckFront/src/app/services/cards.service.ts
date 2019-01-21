@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { filter, map, catchError } from 'rxjs/operators';
 @Injectable()
 export class CardsService {
-    constructor(private authHttp: HttpClient) { }
+    constructor(private http: HttpClient) { }
+    baseUrl = 'http://localhost:3000';
 
-    getCardsTypes() {
-      return  this.authHttp.get('https://api.magicthegathering.io/v1/types');
+    getCardsByColor(color: string) {
+      return this.http.get(`${this.baseUrl}/cards/${color}`);
     }
     getAllCards(): Observable<any> {
-      return this.authHttp.get<any>('https://api.scryfall.com/cards?set=rna');
+      return this.http.get(`${this.baseUrl}/cards`);
     }
 }

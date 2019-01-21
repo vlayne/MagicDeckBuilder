@@ -1,5 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CardModel, DeckModel } from '../core/models';
+import { CardsService } from '../services/index';
+
 
 /**
  * @title Drag&Drop connected sorting
@@ -9,22 +12,16 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
   templateUrl: 'deckbuilder.component.html',
   styleUrls: ['deckbuilder.component.scss'],
 })
-export class DeckBuilderComponent {
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
+export class DeckBuilderComponent implements OnInit {
+  cards: CardModel[];
+  deck: DeckModel;
 
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
+  constructor(private cardsSvc: CardsService) {}
+  ngOnInit(){
+    this.cardsSvc.getAllCards().subscribe(data => {
+      console.log('data',data);
+    })
+  }
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

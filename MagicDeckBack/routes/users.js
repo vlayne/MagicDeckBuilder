@@ -2,17 +2,13 @@ const express = require('express');
 const mysql = require('mysql');
 var router = express.Router();
 const joi = require('joi');
-const database = require ('../database');
+const database = require('../database');
 const User = require('../models/user.model')
 const bcrypt = require('bcrypt-nodejs');
 
-const settingsDB = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    port: 3306,
-    database: "magicdeckbuilder"
-})
+settings = database.settings;
+
+console.log('settings', settings);
 /*
  Register part 
 */
@@ -44,7 +40,7 @@ router.route('/sign-up').post(async (req, res, next) => {
 
     const user = result.value;
 
-    settingsDB.query("INSERT INTO user (email,pseudonyme,mot_de_passe,role) VALUES ('" + user['email'] + "', '" + user['username'] +"' , '" + user['password']+"', 0 ) ", function(err,result,fields) {
+    settings.query("INSERT INTO user (email,username,password,role) VALUES ('" + user['email'] + "', '" + user['username'] +"' , '" + user['password']+"', 0 ) ", function(err,result,fields) {
         if(err) throw err;
         if(fields) {
             res.send("User created : " + fields);
@@ -60,9 +56,9 @@ router.route('/sign-up').post(async (req, res, next) => {
 
 router.route('/sign-in').post(async (req,res,next) => {
         try{   
-            settingsDB.query("SELECT * FROM user WHERE pseudonyme = '"+ req.body.username+"'", function(err,result,fields){
+            settings.query("SELECT * FROM user WHERE username = '"+ req.body.username+"'", function(err,result,fields){
                 if(err){ throw (err)};
-                res.send(comparePassword(req.body.password,result[0]['mot_de_passe']));
+                res.send(comparePassword(req.body.password,result[0]['password']));
             } );
         } catch(error) {
             console.log(error);
@@ -82,4 +78,5 @@ hashPassword = function (password) {
 comparePassword = function(password, encrypted){
     return bcrypt.compareSync(password, encrypted);
 }
+
 module.exports = router;

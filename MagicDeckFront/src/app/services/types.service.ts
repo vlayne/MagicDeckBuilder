@@ -10,31 +10,31 @@ export class TypesService {
     getElementsType() {
         this.types = [
             {
-                name: 'Montagne',
+                name: 'Mountain',
                 bgUrl: '../assets/imgs/rouge.png',
                 class: 'fireTypeWidget',
                 color: 'R'
             },
             {
-                name: 'Île',
+                name: 'Island',
                 bgUrl: '../assets/imgs/bleu.png',
                 class: 'waterTypeWidget',
                 color: 'U'
             },
             {
-                name: 'Plaine',
+                name: 'Lowland',
                 bgUrl: '../assets/imgs/blanc.png',
                 class: 'lightTypeWidget',
                 color: 'W'
             },
             {
-                name: 'Marais',
+                name: 'Swamp',
                 bgUrl: '../assets/imgs/noir.png',
                 class: 'darkTypeWidget',
                 color: 'B'
             },
             {
-                name: 'Forêt',
+                name: 'Forest',
                 bgUrl: '../assets/imgs/vert.png',
                 class: 'woodTypeWidget',
                 color: 'G'

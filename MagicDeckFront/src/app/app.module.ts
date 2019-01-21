@@ -14,13 +14,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '../../node_modules/@angular/common/http';
 // import { SassHelperComponent } from './services/sass-helper/sass-helper.component';
 import { PagerComponent } from './pager/pager.component';
-import { CoreComponent } from './core/core.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { JwtInterceptor } from './helper/jwt-interceptor';
 import { ErrorCatcher } from './helper/error-catcher';
-import { NgDragDropModule } from 'ng-drag-drop';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 export const routes: Routes = [
@@ -40,7 +38,6 @@ export const routes: Routes = [
     FooterComponent,
     // SassHelperComponent,
     PagerComponent,
-    CoreComponent,
     AlertComponent,
     SignInComponent,
     SignUpComponent,
@@ -54,7 +51,6 @@ export const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     FontAwesomeModule,
-    NgDragDropModule,
     DragDropModule
   ],
   providers: [

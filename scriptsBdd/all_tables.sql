@@ -1,59 +1,63 @@
-create table Droit( 
-	id_droit int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
+drop table if exists LinkRuleRole;
+drop table if exists User;
+drop table if exists Rule;
+drop table if exists Role;
+
+create table Rule( 
+	id_rule int NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
     description text(500),
-    PRIMARY KEY (id_droit)
+    PRIMARY KEY (id_rule)
 );
 create table Role( 
 	id_role int NOT NULL AUTO_INCREMENT,
-    nom varchar(255) NOT NULL,
+    name varchar(255) NOT NULL,
     description text(500),
     PRIMARY KEY (id_role)
 );
-CREATE TABLE LienDroitRole (
-	id_droit integer NOT NULL,
+CREATE TABLE LinkRuleRole (
+	id_rule integer NOT NULL,
     id_role integer NOT NULL,
-    PRIMARY KEY (id_droit, id_role),
-    FOREIGN KEY (id_droit) REFERENCES Droit(id_droit),
+    PRIMARY KEY (id_rule, id_role),
+    FOREIGN KEY (id_rule) REFERENCES rule(id_rule),
     FOREIGN KEY (id_role) REFERENCES Role(id_role) );
 create table User( 
 	id int NOT NULL AUTO_INCREMENT,
     email varchar(255) NOT NULL,
-    mot_de_passe varchar(255) NOT NULL,
-    pseudonyme varchar(255) NOT NULL,
-    nom varchar(255),
-    prenom varchar(255),
-    adresse text(500),
+    password varchar(255) NOT NULL,
+    username varchar(255) NOT NULL,
+    firstname varchar(255),
+    lastname varchar(255),
+    adress text(500),
     role int (2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (role) REFERENCES Role(id_role)
 );
 create table Deck( 
-	id int NOT NULL AUTO_INCREMENT,
-    id_utilisateur int NOT NULL,
-    id_deck_variante int,
-    nom varchar(255) NOT NULL,
+	id int NOT NULL,
+    id_user int,
+    id_deck_variant int,
+    name varchar(255) NOT NULL,
     description text,
-    note tinyint,
-    PRIMARY KEY (id_utilisateur,id),
-    FOREIGN KEY (id_utilisateur) REFERENCES User(id)
+    note int(1),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id_user) REFERENCES User(id)
 );
 CREATE TABLE Card (
     id INT NOT NULL AUTO_INCREMENT,
-    nom VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     description TEXT,
-    manaCost VARCHAR(100),
+    mana_cost VARCHAR(100),
     color VARCHAR(20),
     type VARCHAR(255),
-    rareté VARCHAR(100),
+    rarity VARCHAR(100),
     extension VARCHAR(40),
     imageUrl TEXT,
     PRIMARY KEY (id)
 );
-CREATE TABLE LienDeckCard (
+CREATE TABLE LinkDeckCard (
 	id_card integer NOT NULL,
-    id_deck integer NOT NULL,
-    id_utilisateur integer NOT NULL,
-    PRIMARY KEY (id_utilisateur,id_deck, id_card),
+	id_deck integer NOT NULL,
+    PRIMARY KEY (id_deck, id_card),
     FOREIGN KEY (id_card) REFERENCES Card(id),
-    FOREIGN KEY (id_utilisateur,id_deck) REFERENCES Deck(id, id_utilisateur) );
+    FOREIGN KEY (id_deck) REFERENCES Deck(id) );

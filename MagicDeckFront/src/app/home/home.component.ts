@@ -17,10 +17,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.types =  this.typeSvc.getElementsType();
     console.log('elemTypes', this.types);
-
-    this.svcMagic.getCardsTypes().subscribe(type => {
-    console.log('types', type);
-    });
   }
   activateHomeLayout() {
     if(this.fromHomeWidgetsToCards){
@@ -29,9 +25,9 @@ export class HomeComponent implements OnInit {
     this.fromHomeWidgetsToCards = !this.fromHomeWidgetsToCards;
   }
   getCardsFromType(type) {
-    this.svcMagic.getAllCards().subscribe(card => {
+    this.svcMagic.getCardsByColor(type.color).subscribe(card => {
       console.log(card);
-      this.cardsByColor = card.data.filter(x => x.color_identity.find(y => y === type.color));
+      this.cardsByColor = card;
       this.fromHomeWidgetsToCards = true;
     });
     this.elementCardText = type.name;

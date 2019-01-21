@@ -4,7 +4,6 @@ const request = require('request');
 let cardModel = require('./models/card.model');
 const express = require('express')
 const app = express()
-
 var cards = require('./cards-magic.json')
 
 
@@ -16,37 +15,42 @@ var con = mysql.createConnection({
 
 let values = [];
 
-for (i=0; i<1000;i++){  
-    cards[i]['name'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
-    if(cards[i]['image_uris.normal']){
-    cards[i]['image_uris.normal'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+for (i=0; i<cards.length;i++){  
+
+  let set = cards[i]['set']; let name = cards[i]['name'];
+
+  if(set === "grn" || set === "dom" || set === "xln" || set === "rix" || set === "m19") {
+
+    let image = cards[i]['image_uris'];
+    let color = cards[i]['colors']; let mana = cards[i]['mana_cost'];
+    let type = cards[i]['type_line']; let rarity = cards[i]['rarity'];
+
+    name.replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    if(image){
+    image['normal'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
     }
-    if(cards[i]['mana_cost']){
-    cards[i]['mana_cost'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    if(mana){
+    mana.replace(/(|)/,function(match){return (match === "(")?"[":"]"});
     }
-    if(cards[i]['colors'] && cards[i]['colors'][0]){
-    cards[i]['colors'][0].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    if(color && color[0]){
+    color[0].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
     }
-    cards[i]['type_line'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
-    cards[i]['rarity'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
-    cards[i]['set'].replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    type.replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    rarity.replace(/(|)/,function(match){return (match === "(")?"[":"]"});
+    set.replace(/(|)/,function(match){return (match === "(")?"[":"]"});
     
-    values.push([cards[i]['name'],cards[i]['image_uris.normal'],
-    cards[i]['mana_cost'],cards[i]['colors'] ? cards[i]['colors'][0] : null,cards[i]['type_line'],
-    cards[i]['rarity'],cards[i]['set']]);
+    values.push([null,name,cards[i]['oracle_text'],mana,color ? color[0] : 'N',type,rarity,set,image ? image['normal'] : null]);
+  }
 }
 
-con.query("INSERT INTO card (nom,imageUrl,manaCost,color,type,rareté,extension) VALUES ?",[values], function(err,result,fields) {
+con.query("INSERT INTO card VALUES ?",[values], function(err,result,fields) {
   if(err) throw err;
 });
 
-
-
 app.get('/', function (req, res) {
-  res.send(values);
+  res.send(cards[0]);
 });
 
 app.listen(3000, function () {
 })
-// On ajout ensuite toutes les cartes récupérées à notre BDD
 
