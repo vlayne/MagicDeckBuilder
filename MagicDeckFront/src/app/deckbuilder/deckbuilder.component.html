@@ -23,9 +23,7 @@
       [cdkDropListConnectedTo]="[cardList]"
       class="cards-list"
       (cdkDropListDropped)="drop($event)">
-      <div *ngIf="deck">
       <img  class="cards-box" src='{{item.imageUrl}}' *ngFor="let item of deck" cdkDrag/>
-    </div>
     </div>
   </div>
 </div>

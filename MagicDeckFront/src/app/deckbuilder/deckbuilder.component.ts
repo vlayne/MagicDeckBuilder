@@ -14,7 +14,7 @@ import { CardsService } from '../services/index';
 })
 export class DeckBuilderComponent implements OnInit {
   cards: CardModel[];
-  deck: DeckModel = new DeckModel();
+  deck: DeckModel = new DeckModel('');
 
   constructor(private cardsSvc: CardsService) {}
   ngOnInit() {

@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.types =  this.typeSvc.getElementsType();
-    console.log('elemTypes', this.types);
   }
   activateHomeLayout() {
     if (this.fromHomeWidgetsToCards){

@@ -56,8 +56,7 @@ export class SignUpComponent implements OnInit {
         this.userService.register(this.registerForm.value)
             .subscribe(
                 data => {
-                    console.log('response', data);
-                    this.alertService.success('Inscription réussie vous allez être rediriger dans 5 secondes', true);
+                    this.alertService.success(data.toString(), true);
                     setTimeout(() => {
                         this.router.navigate(['/sign-in']);
                     }, 5000);
