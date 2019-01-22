@@ -9,6 +9,18 @@ const indexRoute2 = require ('./routes/users');
 // Config for request to api
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+var originsWhitelist = [
+    'http://localhost:4200',
+    'http://www.magic_deck_builder_youness_nady.com'
+  ];
+  var corsOptions = {
+    origin: function(origin, callback){
+          var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+          callback(null, isWhitelisted);
+    },
+    credentials:true
+}
+app.use(cors(corsOptions));
 app.all('*', function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
     res.setHeader("Access-Control-Allow-Headers", "X-Requested-With,content-type");

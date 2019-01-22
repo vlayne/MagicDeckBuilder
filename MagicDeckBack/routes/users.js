@@ -8,7 +8,6 @@ const bcrypt = require('bcrypt-nodejs');
 
 settings = database.settings;
 
-console.log('settings', settings);
 /*
  Register part 
 */
@@ -54,6 +53,9 @@ router.route('/sign-up').post(async (req, res, next) => {
   }
 })
 
+/*
+ Login part
+*/
 router.route('/sign-in').post(async (req,res,next) => {
         try{   
             settings.query("SELECT * FROM user WHERE username = '"+ req.body.username+"'", function(err,result,fields){

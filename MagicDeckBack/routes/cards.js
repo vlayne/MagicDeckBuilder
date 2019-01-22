@@ -1,31 +1,30 @@
 const express = require('express');
-const mysql = require('mysql');
 var router = express.Router();
-const joi = require('joi');
 const database = require('../database');
 const cards = require('../models/user.model')
-const bcrypt = require('bcrypt-nodejs');
 
 settings = database.settings;
 
-router.route('/cards/:color').get(async (req, res, next) => {
-    settings.query('SELECT * FROM card WHERE color = ?', req.params.tagId, function(err,res,fields){
+router.route('/:color').get(async (req, res, next) => {
+    console.log('req',req.params);
+    settings.query('SELECT * FROM card WHERE color = ?', req.params.color, function(err,result,fields){
         if(err) throw err;
-        if(res.body){
-        return res.status(200).JSON(res.body);
+        console.log('res',res);
+        if(result){
+        return res.status(200).json(result);
         } else {
-        return res.status(400).JSON(err);
+        return res.status(500).json(err);
         }
     });
 });
 
-router.route('/cards').get(async (req, res, next) => {
-    settings.query('SELECT * FROM card', function(err,res,fields){
+router.route('/').get(async (req, res, next) => {
+    settings.query('SELECT * FROM card', function(err,result,fields){
         if(err) throw err;
-        if(res.body){
-        return res.status(200).JSON(res.body);
+        if(result){
+        return res.status(200).json(result);
         } else {
-        return res.status(400).JSON(err);
+        return res.status(500).json(err);
         }
     });
 });

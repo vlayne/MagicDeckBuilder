@@ -2,6 +2,9 @@ drop table if exists LinkRuleRole;
 drop table if exists User;
 drop table if exists Rule;
 drop table if exists Role;
+drop table if exists LinkDeckCard;
+drop table if exists Card;
+drop table if exists Deck;
 
 create table Rule( 
 	id_rule int NOT NULL AUTO_INCREMENT,

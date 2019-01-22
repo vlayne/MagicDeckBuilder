@@ -1,6 +1,4 @@
 .cards-container {
-    width: 400px;
-    max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
     vertical-align: top;
@@ -9,26 +7,31 @@
   .cards-list {
     border: solid 1px #ccc;
     min-height: 60px;
-    background: white;
+    max-height: 50em;
+    width: 62em;
+    background: #ffffff61;
     border-radius: 4px;
-    overflow: hidden;
+    overflow: scroll;
     display: block;
   }
   
-  .cards {
-    padding: 20px 10px;
+  .card {
+    margin: 1em;
     border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    cursor: move;
-    background: white;
+    cursor: -webkit-grab;
+    cursor: grab;
     font-size: 14px;
+    width: 30%;
+    height: 30%;
+    max-width: 10em;
+    max-height: 20em;
   }
-  
+  .card:hover{
+    width: 20em;
+    height: 40em;
+    z-index: 100;
+  }
+
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;

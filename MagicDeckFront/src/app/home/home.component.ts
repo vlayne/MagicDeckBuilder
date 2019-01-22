@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     console.log('elemTypes', this.types);
   }
   activateHomeLayout() {
-    if(this.fromHomeWidgetsToCards){
+    if (this.fromHomeWidgetsToCards){
       this.elementCardText = null;
     }
     this.fromHomeWidgetsToCards = !this.fromHomeWidgetsToCards;

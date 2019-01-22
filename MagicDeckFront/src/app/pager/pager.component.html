@@ -4,7 +4,7 @@
 
       <!-- items being paged -->
       <div *ngFor="let type of listCurrentCards">
-        <div  class="card col-md-4" [style.backgroundImage]="getImageSecured(type.image_uris['normal'])" >
+        <div  class="card col-md-4" [style.backgroundImage]="getImageSecured(type.imageUrl)" >
           <div class="card-body">
             <div class="bar-bottom-actions">
               <h5 class="card-title" style="color:white" > {{ type.name }} </h5>

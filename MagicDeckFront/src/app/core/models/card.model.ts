@@ -9,7 +9,7 @@ export class CardModel {
     extension: string;
     imageUrl: string;
 
-    constructor (data: any) {
+    constructor (data?: any) {
         if (data) {
             this.name = data.name;
             this.mana_cost = data.mana_cost;

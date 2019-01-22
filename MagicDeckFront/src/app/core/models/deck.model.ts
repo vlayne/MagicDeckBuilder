@@ -6,7 +6,7 @@ export class DeckModel {
     description: string;
     note: string;
 
-    constructor (data: any) {
+    constructor (data?: any) {
         if (data) {
             this.id_user = data.id_user;
             this.id = data.id;

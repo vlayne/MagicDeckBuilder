@@ -14,15 +14,16 @@ import { CardsService } from '../services/index';
 })
 export class DeckBuilderComponent implements OnInit {
   cards: CardModel[];
-  deck: DeckModel;
+  deck: DeckModel = new DeckModel();
 
   constructor(private cardsSvc: CardsService) {}
-  ngOnInit(){
+  ngOnInit() {
     this.cardsSvc.getAllCards().subscribe(data => {
-      console.log('data',data);
-    })
+      this.cards = data;
+    });
   }
   drop(event: CdkDragDrop<string[]>) {
+    console.log('event', event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

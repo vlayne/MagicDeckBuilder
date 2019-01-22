@@ -1,29 +1,31 @@
-<div class="container">
+<div style="display:flex;">
   <div class="cards-container">
     <h2>Liste des cartes</h2>
 
     <div
       cdkDropList
-      #todoList="cdkDropList"
-      [cdkDropListData]="todo"
-      [cdkDropListConnectedTo]="[doneList]"
+      #cardList="cdkDropList"
+      [cdkDropListData]="cards"
+      [cdkDropListConnectedTo]="[deckList]"
       class="cards-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="cards" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+      <img  class="card" src='{{item.imageUrl}}' *ngFor="let item of cards" cdkDrag/>
     </div>
   </div>
 
-  <div class="example-container">
+  <div class="deck-container">
     <h2>Deck</h2>
 
     <div
       cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
+      #deckList="cdkDropList"
+      [cdkDropListData]="deck"
+      [cdkDropListConnectedTo]="[cardList]"
+      class="cards-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+      <div *ngIf="deck">
+      <img  class="cards-box" src='{{item.imageUrl}}' *ngFor="let item of deck" cdkDrag/>
+    </div>
     </div>
   </div>
 </div>

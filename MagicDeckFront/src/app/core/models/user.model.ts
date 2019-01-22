@@ -6,7 +6,7 @@ export class UserModel {
     lastName: string;
     role: number;
     token: string;
-    constructor (data: any) {
+    constructor (data?: any) {
         if (data) {
             this.id = data.id;
             this.username = data.username;
