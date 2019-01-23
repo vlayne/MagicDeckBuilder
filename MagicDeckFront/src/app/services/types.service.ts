@@ -10,31 +10,31 @@ export class TypesService {
     getElementsType() {
         this.types = [
             {
-                name: 'Mountain',
+                name: 'Montagne',
                 bgUrl: '../assets/imgs/rouge.png',
                 class: 'fireTypeWidget',
                 color: 'R'
             },
             {
-                name: 'Island',
+                name: 'Île',
                 bgUrl: '../assets/imgs/bleu.png',
                 class: 'waterTypeWidget',
                 color: 'U'
             },
             {
-                name: 'Lowland',
+                name: 'Plaine',
                 bgUrl: '../assets/imgs/blanc.png',
                 class: 'lightTypeWidget',
                 color: 'W'
             },
             {
-                name: 'Swamp',
+                name: 'Marais',
                 bgUrl: '../assets/imgs/noir.png',
                 class: 'darkTypeWidget',
                 color: 'B'
             },
             {
-                name: 'Forest',
+                name: 'Forêt',
                 bgUrl: '../assets/imgs/vert.png',
                 class: 'woodTypeWidget',
                 color: 'G'
@@ -42,4 +42,4 @@ export class TypesService {
         ];
         return this.types;
     }
-}   
+}

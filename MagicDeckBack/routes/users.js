@@ -2,9 +2,11 @@ const express = require('express');
 const mysql = require('mysql');
 var router = express.Router();
 const joi = require('joi');
-const database = require('../database');
+const database = require('../service/database');
 const User = require('../models/user.model')
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('../resources/config.json');
 
 settings = database.settings;
 
@@ -19,7 +21,7 @@ const requiredFields = joi.object().keys({
     confirmPassword: joi.any().valid(joi.ref('password')).required()})
 });
 
-router.route('/sign-up').post(async (req, res, next) => {
+router.route('/sign-up').post(function (req, res, next) {
   try {
     const result = joi.validate(req.body, requiredFields);
     if (result.error) {
@@ -30,7 +32,8 @@ router.route('/sign-up').post(async (req, res, next) => {
         if(resultMail && resultMail.length>0){
         return res.status(500).json('Un utilisateur est déjà inscrit avec cet email !');
         } else {
-            const hash = hashPassword(result.value.password);
+
+            const hash = hashPassword(result.value.passwords.password);
 
             delete result.value.passwords;
             result.value.password = hash;
@@ -40,11 +43,10 @@ router.route('/sign-up').post(async (req, res, next) => {
             settings.query("INSERT INTO user (email,username,password,role) VALUES ('" + user['email'] + "', '" 
             + user['username'] +"','"+user['password']+"', 3 ) ", function(err,resultat) {
                 if(err) throw err;
-                console.log('resultat', resultat);
                 if(resultat) {
                     return  res.status(200).json('Inscription réussie vous allez être rediriger dans 5 secondes');
                 } else {
-                    return  res.status(500).json('error on create', err);
+                    return  res.status(500).json('Erreur lors de l\'inscription.');
                 }
             });
         }
@@ -60,25 +62,24 @@ router.route('/sign-up').post(async (req, res, next) => {
  * Login parts  *
  *              *
  */             
-router.route('/sign-in').post(async (req,res,next) => {
-    settings.query("SELECT * FROM user WHERE username = '"+req.body.username+"'", function(err,result){
+router.route('/sign-in').post( function (req,res) {
+    settings.query("SELECT * FROM user WHERE username = ?",req.body.username, function(err,result){
         if(err){ throw (err)};
-        console.log('pswdReq',req.password);
-        console.log('result', result.body);
-        if(comparePassword(req.body.password,result[0]['password'])){
-            return  res.status(200).json('Welcome ! You are connected');
+        const user = result[0];
+        if(user && comparePassword(req.body.password,user.password)){
+            const token = jwt.sign({sub: user.id}, config.secret, {expiresIn:"2h"});
+            user.token = token;
+            user.password = null;
+            return  res.status(200).json(user);
         } else {
-            return  res.status(500).json('Error on log-in !');
+            return  res.status(500).json('Erreur de connection.');
         }
     } );
 });
 
-router.post('/check_role/{roleId}', function(req,res){
-
-});
-
 hashPassword = function (password) {
     const salt = bcrypt.genSaltSync(10);
+    console.log(password,salt);
     return  bcrypt.hashSync(password, salt);
 }
 comparePassword = function(password, encrypted){

@@ -52,14 +52,16 @@ export class SignInComponent implements OnInit {
         this.userService.login(this.f.username.value, this.f.password.value)
             .subscribe(
                 data => {
-                    console.log('testData', data);
+                    console.log('data',data);
                     if (data) {
+                    this.alertService.success('Vous êtes connecté');
                     this.router.navigate([this.returnUrl]);
                     } else {
                         this.alertService.error('error');
                     }
                 },
                 error => {
+                    console.log(error);
                     this.alertService.error(error);
                     this.loading = false;
                 });

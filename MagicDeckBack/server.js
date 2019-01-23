@@ -2,16 +2,17 @@ const express = require('express');
 const bodyParser = require ('body-parser');
 const app = express();
 const cors = require('cors');
-const indexRoute = require ('./routes/cards');
-const indexRoute2 = require ('./routes/users');
+const cards = require ('./routes/cards');
+const users = require ('./routes/users');
+const errorHandler = require('./service/error-handler');
+const jwt = require('./service/jwt');
 
-
-// Config for request to api
+// Config pour requêtes vers l'API
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 var originsWhitelist = [
     'http://localhost:4200',
-    'http://www.magic_deck_builder_youness_nady.com'
+    'http://www.magic_deck_builder.com'
   ];
   var corsOptions = {
     origin: function(origin, callback){
@@ -29,13 +30,14 @@ app.all('*', function(req, res, next) {
     next();
  });
 
-app.use('/user', indexRoute2);
-app.use('/cards', indexRoute);
+app.use(jwt());
+
+app.use('/user', users);
+app.use('/cards', cards);
+// gère les erreurs de tokens
+app.use(errorHandler);
 // console.log('prod env', process.env);
 
-app.get('/', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain');
-    res.send('Vous êtes à l\'accueil');
+app.listen(3000, function () {
+  console.log("Express server listening on port 3000");
 });
-
-app.listen(3000);

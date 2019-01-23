@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserModel } from '../core/models/user.model';
+import { UserModel } from '../models/user.model';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    baseUrl = 'http://localhost:3000';
+    private baseUrl = 'http://localhost:3000';
     private currentUserSubject: BehaviorSubject<UserModel>;
     public currentUser: Observable<UserModel>;
 
@@ -31,7 +31,17 @@ export class UserService {
         return this.http.post(`${this.baseUrl}/user/sign-up`, user , {withCredentials: true});
     }
     login(username: string, password: string) {
-        return this.http.post<any>(`${this.baseUrl}/user/sign-in`, {username, password}, {withCredentials: true});
+        return this.http.post<any>(`${this.baseUrl}/user/sign-in`, {username, password}, {withCredentials: true})
+            .pipe(map(user => {
+            // Si l'utilisateur reçoit un token la connexion réussie
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+            }
+
+            return user;
+        }));
     }
     logout() {
         // remove user from local storage to log user out

@@ -1,29 +1,67 @@
-<div style="display:flex;">
-  <div class="cards-container">
-    <h2>Liste des cartes</h2>
+<div class="main-container">
+  <button class="btn btn-primary" (click)="onSubmit()">Sauvegarder</button>
+  <div class="deck-card-container">
+    <div class="cards-container">
+      <div style="display: -webkit-box;">
+        <h2 style="margin-bottom:0;">Liste des cartes</h2>
+        <mat-form-field>
+          <mat-select [(value)]="colorSelected"  (selectionChange)="onColorChange($event.value)" >
+            <mat-option *ngFor="let color of colors"  [value]="color.value">
+              {{color.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div
+        cdkDropList
+        #cardList="cdkDropList"
+        [cdkDropListData]="cards"
+        [cdkDropListConnectedTo]="[deckList]"
+        class="cards-list"
+        (cdkDropListDropped)="drop($event)">
+        <img  class="card" src='{{item.imageUrl}}' *ngFor="let item of cards" cdkDrag/>
+      </div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="setPage(1)">Début</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="setPage(pager.currentPage - 1)">Précédent</a>
+          </li>
+          <li *ngFor="let page of pager.pages" class="current_page" [ngClass]="{active:pager.currentPage === page}">
+              <a (click)="setPage(page)">{{page}}</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="setPage(pager.currentPage + 1)">Suivant</a>
+          </li>
+          <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="setPage(pager.totalPages)">Fin</a>
+          </li>
+      </ul>
+    </div>
 
-    <div
-      cdkDropList
-      #cardList="cdkDropList"
-      [cdkDropListData]="cards"
-      [cdkDropListConnectedTo]="[deckList]"
-      class="cards-list"
-      (cdkDropListDropped)="drop($event)">
-      <img  class="card" src='{{item.imageUrl}}' *ngFor="let item of cards" cdkDrag/>
+    <div class="deck-container">
+      <div class="head-container">
+        <h2 class="head-element">Deck ({{cardsSelected ? cardsSelected.length : '0'}} carte(s))</h2>
+        <input class="head-element" type="text" name="title" placeholder="Titre de votre deck..."/>
+      </div>
+      <div
+        cdkDropList
+        #deckList="cdkDropList"
+        [cdkDropListData]="cardsSelected"
+        [cdkDropListConnectedTo]="[cardList]"
+        class="cards-list"
+        (cdkDropListDropped)="drop($event)">
+        <div *ngIf="cardsSelected">
+          <img  class="card" src='{{item.imageUrl}}' *ngFor="let item of cardsSelected" cdkDrag/>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="deck-container">
-    <h2>Deck</h2>
-
-    <div
-      cdkDropList
-      #deckList="cdkDropList"
-      [cdkDropListData]="deck"
-      [cdkDropListConnectedTo]="[cardList]"
-      class="cards-list"
-      (cdkDropListDropped)="drop($event)">
-      <img  class="cards-box" src='{{item.imageUrl}}' *ngFor="let item of deck" cdkDrag/>
-    </div>
+  <div class="description-container">
+    <textarea class="description" rows="20" cols="200">
+    Comment utilisez-vous votre deck ?...
+    </textarea>
   </div>
 </div>

@@ -1,15 +1,15 @@
 <div class="container">
   <div class="text-center">
-      <h1>Cards for field "{{elementCardText}}" (page {{ pager.currentPage }})</h1>
+      <h1>Cartes de type "{{elementCardText}}" (page {{ pager.currentPage }})</h1>
 
       <!-- items being paged -->
       <div *ngFor="let type of listCurrentCards">
         <div  class="card col-md-4" [style.backgroundImage]="getImageSecured(type.imageUrl)" >
           <div class="card-body">
-            <div class="bar-bottom-actions">
+            <!-- <div class="action-bar">
               <h5 class="card-title" style="color:white" > {{ type.name }} </h5>
               <p class="card-text" *ngIf="type.subtypes" style="color:white"> {{ type.subtypes[0] }} </p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

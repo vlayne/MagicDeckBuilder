@@ -11,6 +11,7 @@ export class CardModel {
 
     constructor (data?: any) {
         if (data) {
+            this.id = data.id;
             this.name = data.name;
             this.mana_cost = data.mana_cost;
             this.color = data.color;
@@ -22,3 +23,4 @@ export class CardModel {
         }
     }
 }
+

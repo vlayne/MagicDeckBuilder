@@ -1,25 +1,24 @@
-drop table if exists LinkRuleRole;
-drop table if exists Userdeck;
-drop table if exists Rule;
-drop table if exists Role;
-
+CREATE DATABASE MagicDeckBuilder
+CHARACTER SET utf8
+COLLATE utf8_unicode_ci;
+USE MagicDeckBuilder;
 create table Rule( 
 	id_rule int NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
-    description text(500),
+    description varchar(500),
     PRIMARY KEY (id_rule)
 );
 create table Role( 
 	id_role int NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
-    description text(500),
+    description varchar(500),
     PRIMARY KEY (id_role)
 );
 CREATE TABLE LinkRuleRole (
 	id_rule integer NOT NULL,
     id_role integer NOT NULL,
     PRIMARY KEY (id_rule, id_role),
-    FOREIGN KEY (id_rule) REFERENCES rule(id_rule),
+    FOREIGN KEY (id_rule) REFERENCES Rule(id_rule),
     FOREIGN KEY (id_role) REFERENCES Role(id_role) );
 create table User( 
 	id int NOT NULL AUTO_INCREMENT,
@@ -28,15 +27,16 @@ create table User(
     username varchar(255) NOT NULL,
     firstname varchar(255),
     lastname varchar(255),
-    adress text(500),
+    adress varchar(1000),
     role int (2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (role) REFERENCES Role(id_role)
 );
 create table Deck( 
 	id int NOT NULL,
-    id_user int,
-    id_deck_variant int,
+    id_user int NOT NULL,
+    is_variant bool DEFAULT false,
+    id_ref_deck int,
     name varchar(255) NOT NULL,
     description text,
     note int(1),
@@ -46,12 +46,12 @@ create table Deck(
 CREATE TABLE Card (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    description TEXT,
-    mana_cost VARCHAR(100),
-    color VARCHAR(20),
-    type VARCHAR(255),
-    rarity VARCHAR(100),
-    extension VARCHAR(40),
+    description VARCHAR(1000),
+    mana_cost VARCHAR(50),
+    color VARCHAR(100),
+    type VARCHAR(100),
+    rarity VARCHAR(50),
+    extension VARCHAR(10),
     imageUrl TEXT,
     PRIMARY KEY (id)
 );

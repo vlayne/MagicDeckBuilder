@@ -5,9 +5,9 @@ import { filter, map, catchError } from 'rxjs/operators';
 @Injectable()
 export class CardsService {
     constructor(private http: HttpClient) { }
-    baseUrl = 'http://localhost:3000';
+    private baseUrl = 'http://localhost:3000';
 
-    getCardsByColor(color: string) {
+    getCardsByColor(color: string): Observable<any> {
       return this.http.get(`${this.baseUrl}/cards/${color}`);
     }
     getAllCards(): Observable<any> {

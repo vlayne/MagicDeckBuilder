@@ -10,7 +10,7 @@ import { TypesService } from '../services/types.service';
 export class HomeComponent implements OnInit {
   types: any;
   cardsByColor: any = [];
-  elementCardText: string; 
+  elementCardText: string;
   fromHomeWidgetsToCards = false;
   constructor(private svcMagic: CardsService, private typeSvc: TypesService) { }
 

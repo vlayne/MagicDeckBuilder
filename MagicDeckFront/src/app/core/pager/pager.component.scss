@@ -1,15 +1,16 @@
 .card {
-    width: 230px;
+    width: 250px;
     height: 340px;
     margin: 5px;
-    border-radius:10px;
+    border-radius:15px;
+    background-size: cover;
 }
 .pagination {
     margin: 10px 0 70px !important;
     color: black;
 }
 h1 {
-    color: black;
+    color: white;
 }
 .bar-bottom-actions {
     bottom:0px;
@@ -17,5 +18,5 @@ h1 {
     display: flex;
 }
 .container{
-    max-width: 1000px;
+    max-width: 1100px;
 }

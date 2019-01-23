@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
+        // redirection vers l'accueil dans le cas où l'utilisateur est connecté
         if (this.userService.currentUserValue) {
             this.router.navigate(['/']);
         }
@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
             }, {validator: this.samePasswords('password', 'confirmPassword')})
         });
     }
-    // convenience getter for easy access to form fields
+    // permet d'accéder plus facilement aux controles du formulaire
     get f() { return this.registerForm.controls; }
 
     samePasswords(password: string, confirmPassword: string) {

@@ -1,12 +1,11 @@
 const express = require('express');
 var router = express.Router();
-const database = require('../database');
-const cards = require('../models/user.model')
+const database = require('../service/database');
+const cards = require('../models/user.model');
 
 settings = database.settings;
 
 router.route('/:color').get(async (req, res, next) => {
-    console.log('req',req.params);
     settings.query('SELECT * FROM card WHERE color = ?', req.params.color, function(err,result,fields){
         if(err) throw err;
         console.log('res',res);

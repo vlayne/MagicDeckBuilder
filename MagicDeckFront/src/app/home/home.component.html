@@ -1,5 +1,8 @@
 
 <!-- cards creator http://www.smfcorp.net/funcards/smffcmonline/index2.php -->
+<div style="text-align:center;">
+  <img alt="Magic Logo" class="imageTop" width=250 height=250 src="..\assets\imgs\magic.png"/>
+</div>
 <div *ngIf="!fromHomeWidgetsToCards; else getCardsByElement" class="container"> 
   <div  *ngFor="let type of types">
     <div class="card col-md-4" (click)="getCardsFromType(type)" [ngStyle]="{'background-image': 'url(' + type.bgUrl +')'}">
@@ -8,7 +11,7 @@
 </div>
 <ng-template #getCardsByElement>
   <div class="pager">
-    <button class="btn btn-secondary" (click)="activateHomeLayout()">Back to Home</button>
+    <button class="btn btn-secondary" (click)="activateHomeLayout()">Retour</button>
     <app-pager #cardsByType [listCards]="cardsByColor" [(elementCardText)]="elementCardText" ></app-pager>
   </div>
 </ng-template>

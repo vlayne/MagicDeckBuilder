@@ -10,7 +10,7 @@ export class AlertService {
     constructor(private router: Router) {
         // clear alert message on route change
         router.events.subscribe(event => {
-            if (event instanceof NavigationStart) {
+            if (event) {
                 if (this.keepAfterNavigationChange) {
                     // only keep for a single location change
                     this.keepAfterNavigationChange = false;
@@ -24,6 +24,7 @@ export class AlertService {
 
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
+        console.log('alert', message);
         this.subject.next({ type: 'success', text: message });
     }
 
